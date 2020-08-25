@@ -1,4 +1,5 @@
 import csv
+from elasticsearch import Elasticsearch
 
 spl = lambda s: [x.strip() for x in s.split(',') if x]
 
@@ -21,6 +22,10 @@ SCHEMA = {
   'small_image_url': str
 }
 
+INDEX = "books"
+
+es = Elasticsearch()
+
 def read_books(fl):
   with open(fl, 'r') as bcsv:
     rdr = csv.DictReader(bcsv)
@@ -34,4 +39,11 @@ def read_books(fl):
             pass
       yield target
 
+def send_books(books):
+  for book in books:
+    resp = es.index(index=INDEX, id=book['book_id'], body=book)
+    print(resp)
+  es.indices.refresh(index=INDEX)
+      
 books = read_books('books.csv')
+send_books(books)

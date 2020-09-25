@@ -1,5 +1,6 @@
 import csv
 from elasticsearch import Elasticsearch
+from elasticsearch import helpers
 
 spl = lambda s: [x.strip() for x in s.split(',') if x]
 
@@ -37,12 +38,15 @@ def read_books(fl):
             target[field] = conv(row[field])
           except:
             pass
-      yield target
+      yield {
+        "_index": INDEX,
+        "_id": target['book_id'],
+        "_source": target
+      }
 
 def send_books(books):
-  for book in books:
-    resp = es.index(index=INDEX, id=book['book_id'], body=book)
-    print(resp)
+  resp = helpers.bulk(es, books)
+  print(resp)
   es.indices.refresh(index=INDEX)
       
 books = read_books('books.csv')

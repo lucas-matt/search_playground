@@ -1,0 +1,122 @@
+{
+    "settings": {
+	"analysis": {
+	    "tokenizer": {
+		"edge_ngram_tokenizer": {
+		    "type": "edge_ngram",
+		    "min_gram": "3",
+		    "max_gram": "50",
+		    "token_chars": [
+			"letter",
+			"digit"
+		    ]
+		}
+	    },
+	    "filter": {
+		"stopwords": {
+		    "type": "stop",
+		    "stopwords": "_english_"
+		},
+		"bigram_filter": {
+		    "type": "shingle",
+		    "max_shingle_size": 2,
+		    "min_shingle_size": 2,
+		    "output_unigrams": "false"
+		}
+	    },
+	    "analyzer": {
+		"edge_analyzer": {
+		    "type": "custom",
+		    "tokenizer": "edge_ngram_tokenizer",
+		    "filter": [
+			"lowercase",
+			"stopwords"
+		    ]
+		},
+		"english_analyzer": {
+		    "type": "standard",
+		    "stopwords": "_english_"
+		},
+		"name_analyzer": {
+		    "type": "standard",
+		    "stopwords": "_english_"
+		},
+		"english_bigrams": {
+		    "type": "custom",
+		    "tokenizer": "standard",
+		    "filter": [
+			"lowercase",
+			"porter_stem",
+			"bigram_filter"
+		    ]
+		}
+	    }
+	}
+    },
+    "mappings": {
+	"_doc": {
+	    "_source": {
+		"enabled": true
+	    },
+	    "properties": {
+		"suggestions": {
+		    "type": "completion",
+		    "analyzer": "english_analyzer",
+		    "preserve_position_increments": false
+		}
+		"book_id": {
+		    "type": "keyword"
+		},
+		"isbn": {
+		    "type": "keyword"
+		},
+		"isbn13": {
+		    "type": "keyword"
+		},
+		"language_code": {
+		    "type": "keyword"
+		},
+		"image_url": {
+		    "type": "keyword"
+		},
+		"small_image_url": {
+		    "type": "keyword"
+		},
+		"original_publication_year": {
+		    "type": "number"
+		},
+		"average_rating": {
+		    "type": "number"
+		},
+		"ratings_count": {
+		    "type": "number"
+		},
+		"ratings_1": {
+		    "type": "number"
+		},
+		"ratings_2": {
+		    "type": "number"
+		},
+		"ratings_3": {
+		    "type": "number"
+		},
+		"ratings_4": {
+		    "type": "number"
+		},
+		"ratings_5": {
+		    "type": "number"
+		},
+		"title": {
+		    "type": "text",
+		    "analyzer": "edge_analyzer",
+		    "copy_to": ["suggestions"]
+		},
+		"authors": {
+		    "type": "text",
+		    "analyzer": "name_analyzer",
+		    "copy_to": ["suggestions"]
+		}
+	    }
+	}
+    }
+}

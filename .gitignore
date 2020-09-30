@@ -1,2 +1,5 @@
 books.csv
+books_expanded.csv
 *~
+*#
+.cache

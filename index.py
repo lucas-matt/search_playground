@@ -48,6 +48,9 @@ def send_books(books):
   resp = helpers.bulk(es, books)
   print(resp)
   es.indices.refresh(index=INDEX)
-      
+
+def setup_index(name):
+  
+  
 books = read_books('books.csv')
 send_books(books)

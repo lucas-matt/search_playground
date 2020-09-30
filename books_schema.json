@@ -54,7 +54,6 @@
 	}
     },
     "mappings": {
-	"_doc": {
 	    "_source": {
 		"enabled": true
 	    },
@@ -63,7 +62,7 @@
 		    "type": "completion",
 		    "analyzer": "english_analyzer",
 		    "preserve_position_increments": false
-		}
+		},
 		"book_id": {
 		    "type": "keyword"
 		},
@@ -83,28 +82,28 @@
 		    "type": "keyword"
 		},
 		"original_publication_year": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"average_rating": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"ratings_count": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"ratings_1": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"ratings_2": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"ratings_3": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"ratings_4": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"ratings_5": {
-		    "type": "number"
+		    "type": "integer"
 		},
 		"title": {
 		    "type": "text",
@@ -117,6 +116,5 @@
 		    "copy_to": ["suggestions"]
 		}
 	    }
-	}
     }
 }
